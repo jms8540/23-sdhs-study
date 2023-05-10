@@ -4,19 +4,25 @@ import { Button } from '../../../components/Button/styled';
 
 export const InputBox = styled.div`
   display: flex;
-  width: 300px;
+  justify-content: space-evenly;
   > ${Button} {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50px;
+    width: 65px;
     border: none;
+    margin-left: 20px;
+    font-weight: 600;
+    font-size: 14pt;
+    border-radius: 15px;
+    border: 2px solid red;
     cursor: pointer;
+    background: none;
+    transition: 0.2s;
   }
 `;
 
 export const Input = styled.input`
-  width: 80%;
+  width: 400px;
   padding: 10px;
-  margin: 0 auto;
 `;

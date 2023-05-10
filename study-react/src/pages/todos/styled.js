@@ -11,4 +11,6 @@ export const Container = styled.div`
   padding: 16px;
 `;
 
-export const Title = styled.h2``;
+export const Title = styled.h2`
+  font-size: 26pt;
+`;
