@@ -11,12 +11,9 @@ export const Container = styled.li`
 `;
 
 export const Title = styled.p`
-  width: 350px;
   font-size: 16pt;
   font-weight: 600;
   padding: 15px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
 
 export const ButtonBox = styled.div`
