@@ -7,12 +7,11 @@ function Todo(props) {
   return (
     <S.Container>
       <S.Title>{props.children}</S.Title>
-      <S.Div>
-        <Button className='important'>중요</Button>
+      <S.ButtonBox>
         <Button className='delete' onClick={deleteTodo}>
           삭제
         </Button>
-      </S.Div>
+      </S.ButtonBox>
     </S.Container>
   );
 }

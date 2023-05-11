@@ -16,7 +16,7 @@ export const Title = styled.p`
   padding: 15px;
 `;
 
-export const Div = styled.div`
+export const ButtonBox = styled.div`
   display: flex;
 
   > ${Button} {
