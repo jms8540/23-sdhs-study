@@ -14,3 +14,11 @@ export const Container = styled.div`
 export const Title = styled.h2`
   font-size: 26pt;
 `;
+
+export const Button = styled.button`
+  padding: 10px 15px;
+  border: 2px solid red;
+  border-radius: 20px 20px 8px 8px;
+  background: none;
+  font-weight: 600;
+`;

@@ -4,10 +4,16 @@ import * as S from './styled';
 
 import CreateItemBox from './CreateltemBox';
 import ItemList from './ltemList';
+import SearchInput from '../../components/Searchinput';
+import Button from '../../components/Button';
 
 function Todos() {
   const [todoName, setTodoName] = useState('');
   const [todos, setTodos] = useState([]);
+
+  const [searchValue, setSearchValue] = useState('');
+
+  const [selectedTodoids, setSelectedTodoids] = useState([]);
 
   const createTodo = () => {
     if (!todoName.trim()) {
@@ -19,11 +25,20 @@ function Todos() {
   };
 
   const deleteTodo = id => {
-    const findIndex = todos.findIndex(v => v.id === id);
+    // const findIndex = todos.findIndex(v => v.id === id);
+    // setTodos(prevState => {
+    //   const tempArr = [...prevState];
+    //   tempArr.splice(findIndex, 1);
+    //   return tempArr;
+    // });
+
+    const filterTodos = todos.filter(v => v.id !== id);
+    setTodos(filterTodos);
+  };
+
+  const deleteSelectedTodos = () => {
     setTodos(prevState => {
-      const tempArr = [...prevState];
-      tempArr.splice(findIndex, 1);
-      return tempArr;
+      return prevState.filter(todo => !selectedTodoids.includes(todo.id));
     });
   };
 
@@ -49,8 +64,19 @@ function Todos() {
   return (
     <S.Container>
       <S.Title>To do list</S.Title>
+      <SearchInput
+        onChange={value => {
+          setSearchValue(value);
+        }}
+      />
       <CreateItemBox value={todoName} onChange={setTodoName} createTodoItem={createTodo} />
-      <ItemList todos={todos} deleteTodo={deleteTodo} />;
+      <S.Button onClick={deleteSelectedTodos}>선택 된 To do 삭제</S.Button>
+      <ItemList
+        todos={todos}
+        searchValue={searchValue}
+        deleteTodo={deleteTodo}
+        setSelectedTodoids={setSelectedTodoids}
+      />
     </S.Container>
   );
 }

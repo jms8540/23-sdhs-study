@@ -15,7 +15,7 @@ export const InputBox = styled.div`
     font-weight: 600;
     font-size: 14pt;
     border-radius: 15px;
-    border: 2px solid red;
+    border: 2px solid green;
     cursor: pointer;
     background: none;
     transition: 0.2s;
