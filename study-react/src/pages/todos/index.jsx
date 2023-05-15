@@ -1,4 +1,8 @@
 import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setTodos, createTodo, deleteTodo, deleteSelectedTodos } from '../../reduce/todos';
 
 import * as S from './styled';
 
@@ -9,50 +13,44 @@ import Button from '../../components/Button';
 
 function Todos() {
   const [todoName, setTodoName] = useState('');
-  const [todos, setTodos] = useState([]);
+
+  const dispatch = useDispatch();
+
+  const { todos } = useSelector(state => state.todos);
 
   const [searchValue, setSearchValue] = useState('');
 
-  const [selectedTodoids, setSelectedTodoids] = useState([]);
+  const [selectedTodoIds, setSelectedTodoids] = useState([]);
 
-  const createTodo = () => {
-    if (!todoName.trim()) {
-      alert('내용을 입력해 주세여');
-      return;
-    }
+  const handleCreateTodo = () => {
+    // if (!todoName.trim()) {
+    //   alert('내용을 입력해 주세여');
+    //   return;
+    // }
+    console.log('dsfkjds');
     setTodoName('');
-    setTodos(prevState => [...prevState, { id: prevState.length, name: todoName }]);
+    dispatch(createTodo({ id: uuidv4(), name: todoName }));
+    // setTodos(prevState => [...prevState, { id: prevState.length, name: todoName }]);
   };
 
-  const deleteTodo = id => {
-    // const findIndex = todos.findIndex(v => v.id === id);
-    // setTodos(prevState => {
-    //   const tempArr = [...prevState];
-    //   tempArr.splice(findIndex, 1);
-    //   return tempArr;
-    // });
-
-    const filterTodos = todos.filter(v => v.id !== id);
-    setTodos(filterTodos);
+  const handledeleteTodo = id => {
+    dispatch(deleteTodo(id));
   };
 
-  const deleteSelectedTodos = () => {
-    setTodos(prevState => {
-      return prevState.filter(todo => !selectedTodoids.includes(todo.id));
-    });
+  const handledeleteSelectedTodos = () => {
+    dispatch(deleteSelectedTodos(selectedTodoIds));
   };
 
   useEffect(() => {
     try {
       const parseTodos = JSON.parse(localStorage.getItem('todos'));
-      setTodos(parseTodos);
+      dispatch(setTodos(parseTodos));
     } catch (error) {
       console.log(error);
     }
   }, []);
 
   useEffect(() => {
-    console.log('todos저장');
     try {
       const stringifyTodos = JSON.stringify(todos);
       localStorage.setItem('todos', stringifyTodos);
@@ -69,12 +67,12 @@ function Todos() {
           setSearchValue(value);
         }}
       />
-      <CreateItemBox value={todoName} onChange={setTodoName} createTodoItem={createTodo} />
-      <S.Button onClick={deleteSelectedTodos}>선택 된 To do 삭제</S.Button>
+      <CreateItemBox value={todoName} onChange={setTodoName} createTodoItem={handleCreateTodo} />
+      <S.Button onClick={handledeleteSelectedTodos}>선택 된 To do 삭제</S.Button>
       <ItemList
         todos={todos}
         searchValue={searchValue}
-        deleteTodo={deleteTodo}
+        deleteTodo={handledeleteTodo}
         setSelectedTodoids={setSelectedTodoids}
       />
     </S.Container>
